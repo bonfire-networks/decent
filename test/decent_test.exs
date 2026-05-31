@@ -65,7 +65,7 @@ defmodule DecentTest do
 
     assert {:ok, encrypted} = Decent.encrypt(plain_text, pub_key)
 
-    assert {:error, "Incorrect passphrase"} =
+    assert {:error, "Decryption failed: incorrect or missing passphrase or key"} =
              Decent.decrypt(encrypted, priv_key, bad_priv_key_passphrase)
   end
 
@@ -115,6 +115,15 @@ defmodule DecentTest do
     assert decrypted_long == long_text
   end
 
+  test "extract_key normalizes an armored public key", %{pub_key: pub_key} do
+    assert {:ok, normalized} = Decent.extract_key(pub_key)
+    assert String.starts_with?(normalized, "-----BEGIN PGP PUBLIC KEY BLOCK-----")
+  end
+
+  test "extract_key returns error for invalid key", %{bad_pub_key: bad_pub_key} do
+    assert {:error, "Invalid public key format"} = Decent.extract_key(bad_pub_key)
+  end
+
   test "decrypt with incorrect private key", %{
     pub_key: pub_key,
     priv_key_without_passphrase: priv_key_without_passphrase
@@ -123,7 +132,7 @@ defmodule DecentTest do
 
     assert {:ok, encrypted} = Decent.encrypt(plain_text, pub_key)
 
-    assert {:error, "Decryption failed: MissingKey"} =
+    assert {:error, "Decryption failed: incorrect or missing passphrase or key"} =
              Decent.decrypt(encrypted, priv_key_without_passphrase)
   end
 end
