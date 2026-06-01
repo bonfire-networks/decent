@@ -5,11 +5,12 @@ defmodule Decent.Native do
   version = mix_config[:version]
 
   github_url =
-    Application.compile_env(
-      :decent,
-      :github_url,
-      mix_config[:package][:links]["GitHub"]
-    )
+    System.get_env("DECENT_GITHUB_URL") ||
+      Application.compile_env(
+        :decent,
+        :github_url,
+        mix_config[:package][:links]["GitHub"]
+      )
 
   use RustlerPrecompiled,
     otp_app: :decent,
