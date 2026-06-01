@@ -5,16 +5,16 @@ on:
     branches:
       - main
     paths:
-      # Just run on main branch if "native" path changed.
+      # Just run on main branch if "native" path changed
       - "native/**"
-      # Also run if this file changes.
+      # Also run if this file changes
       - ".github/workflows/release.yml"
     tags:
       # Tags will always run.
       - "*"
   pull_request:
     paths:
-      # In PRs we only run if this file changes.
+      # In PRs we only run if this file changes
       - ".github/workflows/release.yml"
   workflow_dispatch:
 
