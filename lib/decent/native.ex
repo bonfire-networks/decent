@@ -17,6 +17,7 @@ defmodule Decent.Native do
     crate: :decent,
     base_url: github_url <> "/releases/download/v" <> version,
     version: version,
+    nif_versions: ["2.17"],
     force_build: System.get_env("DECENT_BUILD") in ["1", "true"]
 
   @doc """
