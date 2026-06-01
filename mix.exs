@@ -2,7 +2,7 @@ defmodule Decent.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/justindotpub/decent"
-  @version "0.1.2"
+  @version "0.2.0"
 
   def project do
     [
@@ -27,8 +27,8 @@ defmodule Decent.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:rustler_precompiled, "~> 0.8.2"},
-      {:rustler, "~> 0.35", optional: true},
+      {:rustler_precompiled, "~> 0.9.0"},
+      {:rustler, "~> 0.38", optional: true},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ]
   end
